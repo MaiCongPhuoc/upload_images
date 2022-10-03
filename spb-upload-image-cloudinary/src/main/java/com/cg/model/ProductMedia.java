@@ -2,6 +2,7 @@ package com.cg.model;
 
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,6 +24,10 @@ public class ProductMedia {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private Date createdAt;
 
     @Column(name = "file_name")
     private String fileName;

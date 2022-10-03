@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
@@ -57,7 +59,8 @@ public class ProductServiceImpl implements ProductService {
 
         Product product = productRepository.save(productDTO.toProduct());
 
-        for (MultipartFile item : productDTO.getFiles()) {
+        for (MultipartFile item : productDTO.getFile()) {
+
             String fileType = item.getContentType();
 
             assert fileType != null;
@@ -65,7 +68,6 @@ public class ProductServiceImpl implements ProductService {
             fileType = fileType.substring(0, 5);
 
             productDTO.setFileType(fileType);
-
 
             ProductMedia productMedia = productMediaRepository.save(productDTO.toProductMedia());
 
@@ -86,10 +88,10 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findIProductDTOById(id);
     }
 
-    private void uploadAndSaveProductImage(ProductDTO productDTO, Product product, ProductMedia productMedia, MultipartFile file) {
+    private void uploadAndSaveProductImage(ProductDTO productDTO, Product product, ProductMedia productMedia, MultipartFile item) {
         try {
 
-            Map uploadResult = uploadService.uploadImage(file, uploadUtils.buildImageUploadParams(productMedia));
+            Map uploadResult = uploadService.uploadImage(item, uploadUtils.buildImageUploadParams(productMedia));
             String fileUrl = (String) uploadResult.get("secure_url");
             String fileFormat = (String) uploadResult.get("format");
 

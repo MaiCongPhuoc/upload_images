@@ -58,6 +58,8 @@ public class ProductAPI {
 
             IProductDTO iProductDTO =  productService.findIProductDTOById(createdProduct.getId());
 
+            iProductDTO.getId();
+
             return new ResponseEntity<>(iProductDTO, HttpStatus.CREATED);
 
         } catch (DataIntegrityViolationException e) {

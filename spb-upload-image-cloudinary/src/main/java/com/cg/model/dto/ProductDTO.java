@@ -30,7 +30,7 @@ public class ProductDTO implements Serializable {
 
     private String fileProductId;
 
-    private List<MultipartFile> files;
+    private List<MultipartFile> file;
 
     private String fileType;
 

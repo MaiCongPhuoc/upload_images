@@ -192,13 +192,6 @@
             page.element.btnSave.prop('disabled', true);
 
             // array images
-            let file = [];
-            file = page.dialogs.element.imageFile[0].files;
-
-            let output = [];
-            for (let i = 0, f; f = file[i]; i++) {
-                output.push(f.name, f.lastModified);
-            }
 
             let count = page.dialogs.element.imageFile[0].files.length;
 
@@ -210,6 +203,7 @@
             for (let i = 0; i < count; i++) {
                 formData.append("file", page.dialogs.element.imageFile[0].files[i]);
             }
+            console.log(page.dialogs.element.imageFile[0].files)
 
             $.ajax({
                 type: "POST",
